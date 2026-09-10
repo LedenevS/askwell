@@ -1,5 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
-import { embedQuery, openai } from "@/lib/ai/openai";
+import { CHAT_MODELS, embedQuery, openai } from "@/lib/ai/openai";
 import { getPlan, usagePeriodStart } from "@/lib/plans";
 import type { Bot, ChatStreamEvent, Citation, Profile } from "@/lib/types";
 
@@ -129,7 +129,7 @@ export async function answerQuestion(params: AnswerParams): Promise<ReadableStre
   // --- Completion ----------------------------------------------------------
   const systemPrompt = buildSystemPrompt(params.bot, plan.limits.customInstructions, context);
   const completion = await openai().chat.completions.create({
-    model: plan.limits.model,
+    model: CHAT_MODELS[plan.limits.model],
     temperature: 0.2,
     max_tokens: 700,
     stream: true,

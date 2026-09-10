@@ -4,7 +4,7 @@
  *
  *   npx tsx scripts/seed-demo.ts
  *
- * Requires NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY and OPENAI_API_KEY
+ * Requires NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY and OPENROUTER_API_KEY
  * (loaded from .env.local). Prints the public key to put in NEXT_PUBLIC_DEMO_BOT_KEY.
  */
 import { readFileSync, readdirSync } from "node:fs";

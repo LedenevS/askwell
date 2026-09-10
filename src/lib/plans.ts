@@ -11,7 +11,7 @@ export type PlanLimits = {
   customInstructions: boolean;
   allowedOrigins: boolean;
   urlImport: boolean;
-  model: "gpt-4o-mini" | "gpt-4o";
+  model: "standard" | "premium";
   exportConversations: boolean;
 };
 
@@ -46,7 +46,7 @@ export const PLANS: Record<PlanId, Plan> = {
       customInstructions: false,
       allowedOrigins: false,
       urlImport: true,
-      model: "gpt-4o-mini",
+      model: "standard",
       exportConversations: false,
     },
     features: [
@@ -77,7 +77,7 @@ export const PLANS: Record<PlanId, Plan> = {
       customInstructions: false,
       allowedOrigins: true,
       urlImport: true,
-      model: "gpt-4o-mini",
+      model: "standard",
       exportConversations: false,
     },
     features: [
@@ -108,7 +108,7 @@ export const PLANS: Record<PlanId, Plan> = {
       customInstructions: true,
       allowedOrigins: true,
       urlImport: true,
-      model: "gpt-4o",
+      model: "premium",
       exportConversations: true,
     },
     features: [
@@ -116,7 +116,7 @@ export const PLANS: Record<PlanId, Plan> = {
       "5,000 answers / month",
       "500 sources per assistant",
       "Custom persona & instructions",
-      "Smarter model (GPT-4o) for tricky questions",
+      "Premium model for tricky questions",
       "Export conversations to CSV",
       "Everything in Starter",
     ],

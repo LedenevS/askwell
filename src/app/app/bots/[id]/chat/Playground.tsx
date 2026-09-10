@@ -61,7 +61,7 @@ export function Playground({ bot, hasKnowledge, showBranding, modelLabel }: { bo
             <h3 className="font-semibold text-ink-900">How answers work</h3>
             <ol className="mt-3 list-decimal space-y-2 pl-4 text-ink-600">
               <li>Your question is matched against every passage in your sources.</li>
-              <li>The best matches are handed to the model ({modelLabel}) as the only context it may use.</li>
+              <li>The best matches are handed to the model (<code className="rounded bg-ink-100 px-1 text-xs">{modelLabel}</code>) as the only context it may use.</li>
               <li>If nothing relevant is found, the assistant says so instead of guessing — and the question shows up as a knowledge gap.</li>
             </ol>
           </Card>

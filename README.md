@@ -2,7 +2,7 @@
 
 Turn your help docs into a support assistant that answers with citations, lives in your app as a chat playground, and embeds on any website as a widget. It also tells you which questions your docs *can't* answer yet — the knowledge-gap report — so your documentation backlog writes itself.
 
-**Stack:** Next.js 16 (App Router) · Supabase (Postgres + pgvector, Auth, RLS) · OpenAI (`text-embedding-3-small`, `gpt-4o-mini` / `gpt-4o`) · Tailwind CSS 4 · Vercel.
+**Stack:** Next.js 16 (App Router) · Supabase (Postgres + pgvector, Auth, RLS) · OpenRouter (OpenAI-compatible; default `openai/text-embedding-3-small` + `openai/gpt-4o-mini` / `openai/gpt-4o`, any model via env) · Tailwind CSS 4 · Vercel.
 
 ## Features
 
@@ -16,7 +16,7 @@ Turn your help docs into a support assistant that answers with citations, lives 
 
 1. Create a Supabase project. In the SQL editor, run `supabase/migrations/0001_init.sql`.
    - Optional but recommended for demos: Authentication → Providers → Email → turn **off** "Confirm email" so sign-up logs in immediately.
-2. Copy `.env.example` to `.env.local` and fill in the Supabase URL/keys and an OpenAI key.
+2. Copy `.env.example` to `.env.local` and fill in the Supabase URL/keys and an OpenRouter key.
 3. Install and start:
 
    ```bash
