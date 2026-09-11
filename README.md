@@ -1,5 +1,7 @@
 # Askwell
 
+**Live demo:** https://askwell-nine.vercel.app · demo account `demo@askwell.app` / `askwell-demo-2026` · [Tutorial with screenshots](docs/TUTORIAL.md)
+
 Turn your help docs into a support assistant that answers with citations, lives in your app as a chat playground, and embeds on any website as a widget. It also tells you which questions your docs *can't* answer yet — the knowledge-gap report — so your documentation backlog writes itself.
 
 **Stack:** Next.js 16 (App Router) · Supabase (Postgres + pgvector, Auth, RLS) · OpenRouter (OpenAI-compatible; default `openai/text-embedding-3-small` + `openai/gpt-4o-mini` / `openai/gpt-4o`, any model via env) · Tailwind CSS 4 · Vercel.

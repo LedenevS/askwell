@@ -15,7 +15,7 @@ export default async function BotOverviewPage({ params }: PageProps<"/app/bots/[
   const admin = createAdminClient();
   const since = usagePeriodStart().toISOString();
 
-  const [{ count: sources }, { count: convs }, { count: answers }, { count: unanswered }, { data: gaps }] = await Promise.all([
+  const [{ count: sources }, { count: convs }, { count: answers }, { count: unanswered }, { data: gaps }, { count: widgetConvs }] = await Promise.all([
     admin.from("sources").select("id", { count: "exact", head: true }).eq("bot_id", bot.id).eq("status", "ready"),
     admin.from("conversations").select("id", { count: "exact", head: true }).eq("bot_id", bot.id).gte("last_message_at", since),
     admin.from("messages").select("id", { count: "exact", head: true }).eq("bot_id", bot.id).eq("role", "assistant").gte("created_at", since),
@@ -28,6 +28,7 @@ export default async function BotOverviewPage({ params }: PageProps<"/app/bots/[
       .eq("answered", false)
       .order("created_at", { ascending: false })
       .limit(5),
+    admin.from("conversations").select("id", { count: "exact", head: true }).eq("bot_id", bot.id).eq("channel", "widget"),
   ]);
 
   // For each unanswered reply, find the question that preceded it.
@@ -106,7 +107,7 @@ export default async function BotOverviewPage({ params }: PageProps<"/app/bots/[
           <ul className="space-y-3 p-5 text-sm">
             <Step done={setupDone} href={`/app/bots/${bot.id}/knowledge`} label="Add at least one source" />
             <Step done={(answers ?? 0) > 0} href={`/app/bots/${bot.id}/chat`} label="Test it in the chat playground" />
-            <Step done={false} href={`/app/bots/${bot.id}/widget`} label="Install the widget on your site" />
+            <Step done={(widgetConvs ?? 0) > 0} href={`/app/bots/${bot.id}/widget`} label="Install the widget on your site" />
             <Step done={bot.suggested_questions.length > 0} href={`/app/bots/${bot.id}/widget`} label="Add suggested questions" />
           </ul>
         </Card>

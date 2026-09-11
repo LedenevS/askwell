@@ -132,7 +132,7 @@ export function WidgetSetup({ bot, appUrl, canRestrictOrigins, showBranding, pla
                 <div className="h-24 rounded bg-white" />
                 <div className="h-3 w-1/2 rounded bg-white" />
               </div>
-              <div className="absolute bottom-4 right-4 w-[300px] overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-pop">
+              <div className="absolute bottom-[76px] right-4 w-[300px] overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-pop">
                 <div className="flex items-center gap-2 px-4 py-3 text-white" style={{ backgroundColor: color }}>
                   <span className="flex size-7 items-center justify-center rounded-full bg-white/20 text-xs font-semibold">{bot.name.slice(0, 1).toUpperCase()}</span>
                   <div className="text-sm font-medium">{bot.name}</div>
@@ -148,7 +148,7 @@ export function WidgetSetup({ bot, appUrl, canRestrictOrigins, showBranding, pla
                   {showBranding && <p className="mt-1.5 text-center text-[10px] text-ink-400">Powered by Askwell</p>}
                 </div>
               </div>
-              <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-white shadow-pop" style={{ backgroundColor: color }}>
+              <div className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-white shadow-pop" style={{ backgroundColor: color }}>
                 <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <path d="M4 5h16v10H9l-5 4z" />
                 </svg>
