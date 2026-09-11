@@ -152,9 +152,16 @@ export async function answerQuestion(params: AnswerParams): Promise<ReadableStre
       let answered = true;
       let headerChecked = false;
       let pending = "";
+      let started = false;
 
       const flush = (text: string) => {
-        if (text) send(controller, { type: "delta", text });
+        // Drop leading whitespace before the first visible character.
+        if (!started) {
+          text = text.replace(/^\s+/, "");
+          if (!text) return;
+          started = true;
+        }
+        send(controller, { type: "delta", text });
       };
 
       try {
@@ -249,15 +256,23 @@ function buildRetrievalQuery(question: string, history: { role: string; content:
   return question;
 }
 
+/**
+ * Pick the sources worth citing: one entry per source, and only those whose
+ * best passage is close to the strongest match (so loosely related sources
+ * don't get credited for an answer they didn't contribute to).
+ */
 function dedupeBySource(rows: MatchRow[]): MatchRow[] {
   const seen = new Set<string>();
   const out: MatchRow[] = [];
+  const top = rows[0]?.similarity ?? 0;
+  const floor = Math.max(0.3, top - 0.12);
   for (const r of rows) {
     if (seen.has(r.source_id)) continue;
+    if (r.similarity < floor && out.length > 0) continue;
     seen.add(r.source_id);
     out.push(r);
   }
-  return out.slice(0, 4);
+  return out.slice(0, 3);
 }
 
 function buildSystemPrompt(bot: Bot, allowCustomInstructions: boolean, context: string): string {

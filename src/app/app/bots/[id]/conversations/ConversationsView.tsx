@@ -22,7 +22,9 @@ type Props = {
 export function ConversationsView({ botId, conversations, initialSelected, initialFilter, historyDays, canExport }: Props) {
   const router = useRouter();
   const [filter, setFilter] = React.useState<"all" | "unanswered">(initialFilter);
-  const [selected, setSelected] = React.useState<string | null>(initialSelected ?? conversations[0]?.id ?? null);
+  const [selected, setSelected] = React.useState<string | null>(
+    initialSelected ?? (initialFilter === "unanswered" ? conversations.find((c) => c.unanswered_count > 0)?.id : conversations[0]?.id) ?? null,
+  );
   const [loaded, setLoaded] = React.useState<{ id: string; messages: Message[] } | null>(null);
   const messages = loaded && loaded.id === selected ? loaded.messages : null;
   const loading = !!selected && !messages;
