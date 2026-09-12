@@ -13,13 +13,19 @@ export async function extractFromFile(file: File): Promise<string> {
 
   switch (ext) {
     case "pdf": {
-      const { PDFParse } = await import("pdf-parse");
-      const parser = new PDFParse({ data: buffer });
+      // unpdf ships a serverless build of pdf.js that needs no DOM globals
+      // (DOMMatrix, Path2D…), so it runs on Vercel's Node runtime as-is.
+      const { getDocumentProxy, extractText } = await import("unpdf");
+      const pdf = await getDocumentProxy(new Uint8Array(buffer));
       try {
-        const result = await parser.getText();
-        return normalizeText(result.text);
+        const { text } = await extractText(pdf, { mergePages: true });
+        const normalized = normalizeText(text);
+        if (!normalized.trim()) {
+          throw new Error("This PDF has no extractable text (it may be scanned). Try a text-based PDF or paste the text.");
+        }
+        return normalized;
       } finally {
-        await parser.destroy();
+        await pdf.cleanup();
       }
     }
     case "docx": {
